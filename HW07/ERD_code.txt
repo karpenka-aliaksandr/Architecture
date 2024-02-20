@@ -1,0 +1,95 @@
+Product {
+	id bigint pk increments
+	articleNumber int
+	standartPrice int
+	discount string
+	description string
+	specifications string
+	weight float
+	volume float
+	hardness int
+	fragility string
+	type_id bigint > Type_Product.id
+}
+
+Provider {
+	id bigint pk increments
+	name string
+	address string
+	warehouse_id bigint > Warehouse.id
+}
+
+Consumer {
+	id bigint pk increments
+	name string
+	sex string
+	surname string
+	lastname string
+	address string
+}
+
+Category {
+	id bigint pk increments
+	name string
+	description string
+}
+
+Sub_Category {
+	id bigint pk increments
+	name string
+	description string
+	category_id bigint > Category.id
+}
+
+Order {
+	id bigint pk increments
+	receiving_type string
+	route_id bigint > Route.id
+	product_id bigint > Product.id
+	history_id bigint > History.id
+	delivery_id bigint > Delivery.id
+}
+
+History {
+	id bigint pk increments
+	orderDate date
+	orderTime timestamp
+	orderStatus string
+	sendingTime datetime
+	trackingNumber bigint
+	travel_time float
+	isCompleted bool
+}
+
+Route {
+	id bigint pk increments
+	provider_address string
+	consumer_address string
+	provider_id bigint > Provider.id
+	consumer_id bigint > Consumer.id
+}
+
+Warehouse {
+	id bigint pk increments
+	name string
+	address_fact string
+	address_legal string
+	type_warehouse string
+	square double
+	volume double
+}
+
+Delivery {
+	id bigint pk increments
+	name string
+	isCompleted bool
+	orderStatus string
+	delivery_time float
+}
+
+Type_Product {
+	id bigint pk increments
+	name string
+	description string
+	subCategory_id bigint > Sub_Category.id
+}
